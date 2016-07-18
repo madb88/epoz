@@ -1,0 +1,65 @@
+{% extends "base.html.twig" %}
+
+{% block title %}EPOZ{% endblock %}
+
+{% block body %} 
+{{ parent() }}
+<div class="container">
+<div class="row">
+    <div class="col-md-6 col-md-offset-5">
+        <h2>Serach your chart</h2>
+            <form action="founded" method="POST" class="form-inline">
+                <div class="form-group">
+                    <input type="search" name="searchPhrase" class="form-control" type="text" placeholder="Search" required></input>
+                </div>
+                <button type="submit" name="search" value="Search" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<div class="container">
+    <!--- FOUNDED CHARTS PRESENT -->
+    {% if charts is defined%}
+    <hr>
+    <div class="row">
+        <table class="table-hover">
+            <thead>
+                <tr>
+                    <th><p>Title</p></th>
+                </tr>
+            </thead>
+            {% for chart in charts %}
+                <tr id="charts">
+                    <td width="90%"><a href="{{ path('charts_show', {"id": chart.id })}}"><strong><p id="title">{{ chart.title }}</p></strong></a>
+                        <p id="description">{{ chart.description | slice (0,200) }}...</p>
+                    </td>    
+                </tr>
+                {% else %}
+                <p>No chart's found<p>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endif %}
+<!-- Newest CHARTS -->
+{% if newestCharts is defined%}
+ <div class="container newest">
+  <div class="row">
+    <div class="col-sm-6 col-md-offset-3">
+        <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Newest Chart's</h3>
+                </div>
+                <div class="panel-body">
+        {% for chart in newestCharts %}
+            <p><a href="{{ path('charts_show', {"id": chart.id })}}">{{ chart.title }}</a></p>
+            {% endfor %}
+</div>
+</div>
+</div>        
+</div>
+</div>
+{% endif %}
+{% block footer %}{% endblock %}
+{% endblock %}
