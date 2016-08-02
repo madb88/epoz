@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block title %}All Charts's{% endblock %}
+
+{% block body %} 
+{{ parent() }}
+    <div class="container container-fluid">
+        <div class="row">
+              <div class="col-md-12">
+                <h1>Charts for: {{ letter }}</h1>
+                <hr>
+                <table class="table table-condensed">
+                    {% for chart in charts %}
+                        <tr>
+                            <td width="90%"><strong><a href="{{ path('charts_show', { 'id': chart.id })}}">{{ chart.title }}</strong></a></td>
+                        </tr>
+                        {% else %}
+                        <p>No Charts<p>
+            
+            {% endfor %}
+        </table>
+    </div>
+</div>
+</div>
+<footer class="footer">
+<div class="container">
+    <div class="row">
+        <div class="btn-group" role="group" aria-label="...">
+            {% for letter in letters %}
+                <a href="{{ path('chartsByLetters')}}/{{letter}}" class="btn btn-default btn" role="button"><strong>{{letter}}</strong></a>
+            {% endfor %}
+    </div>
+</div>
+
+</footer>
+
+{% block footer %}{% endblock %}
+{% endblock %}
