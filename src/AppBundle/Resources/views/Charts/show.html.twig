@@ -1,64 +1,82 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ entity.title }}{% endblock %}
-{% block body -%}
-    {{ parent() }}
-    <div class="container">
-    <h1>Chart: {{entity.title}}</h1>
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Description</h3>
+    {% block body -%}
+        {{ parent() }}
+        <div class="container">
+            <h1>Chart: {{entity.title}}</h1>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Description</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table borderless">
+                        <tr>
+                            <td>{{ entity.description }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Medicines</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table borderless">
+                        <tr>
+                            <td> 
+                            {% if entity.medicines is not empty %}
+                                {{ entity.medicines }}
+                             {% else %}
+                                <p style="text-align: center">{{ "No data" }}</p> 
+                            {% endif %}
+                            </td>
+                        </tr>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-    <table class="table borderless">
-        <tr>
-            <td>{{ entity.description }}</td>
-        </tr>
-    </table>
-</div>
-</div>
-<div class="panel panel-info">
-        <div class="panel-heading">
-            <h3 class="panel-title">Medicines</h3>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Warning</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table borderless">
+                    <tr>
+                        <td> 
+                            {% if entity.warning is not empty %}
+                                {{ entity.warning }}
+                             {% else %}
+                                <p style="text-align: center">{{ "No data" }}</p> 
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-    <table class="table borderless">
-        <tr>
-            <td> {{ entity.medicines }}</td>
-        </tr>
-    </table>
-</div>
-</div>
-<div class="panel panel-danger">
-        <div class="panel-heading">
-            <h3 class="panel-title">Warning</h3>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Information</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table borderless">
+                    <tbody>
+                        <tr>
+                            <th>Creation date</th>
+                            <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Author</th>
+                            <td>
+                            {% if entity.user is not null %}
+                                {{ entity.user }}
+                             {% else %}
+                                <p>{{ "No author" }}</p> 
+                            {% endif %}
+                        </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {{ knp_disqus_render('epoz', {'identifier': '/december-2010/the-best-day-of-my-life/', 'limit': 10}) }}
         </div>
-        <div class="panel-body">
-    <table class="table borderless">
-        <tr>
-            <td><p>{{ entity.warning }}</p></td>
-        </tr>
-    </table>
-</div>
-</div>
-<div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Information</h3>
-        </div>
-        <div class="panel-body">
-            <table class="table borderless">
-        <tbody>
-            <tr>
-                <th>Creation date</th>
-                <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ entity.user }}
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-{{ knp_disqus_render('epoz', {'identifier': '/december-2010/the-best-day-of-my-life/', 'limit': 10}) }}
-</div>
-{% endblock %}
+    {% endblock %}
