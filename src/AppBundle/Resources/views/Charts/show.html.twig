@@ -24,59 +24,61 @@
                     <table class="table borderless">
                         <tr>
                             <td> 
-                            {% if entity.medicines is not empty %}
-                                {{ entity.medicines }}
-                             {% else %}
-                                <p style="text-align: center">{{ "No data" }}</p> 
-                            {% endif %}
+                                {% if entity.medicines is not empty %}
+                                    {{ entity.medicines }}
+                                    {% else %}
+                                    <p style="text-align: center">{{ "No data" }}</p> 
+                                {% endif %}
                             </td>
                         </tr>
-                </table>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title">Warning</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table borderless">
-                    <tr>
-                        <td> 
-                            {% if entity.warning is not empty %}
-                                {{ entity.warning }}
-                             {% else %}
-                                <p style="text-align: center">{{ "No data" }}</p> 
-                            {% endif %}
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h3 class="panel-title">Information</h3>
-            </div>
-            <div class="panel-body">
-                <table class="table borderless">
-                    <tbody>
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Warning</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table borderless">
                         <tr>
-                            <th>Creation date</th>
-                            <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+                            <td> 
+                                {% if entity.warning is not empty %}
+                                    {{ entity.warning }}
+                                    {% else %}
+                                    <p style="text-align: center">{{ "No data" }}</p> 
+                                {% endif %}
+                            </td>
                         </tr>
-                        <tr>
-                            <th>Author</th>
-                            <td>
-                            {% if entity.user is not null %}
-                                {{ entity.user }}
-                             {% else %}
-                                <p>{{ "No author" }}</p> 
-                            {% endif %}
-                        </td>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Information</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table borderless">
+                        <tbody>
+                            <tr>
+                                <th>Creation date</th>
+                                <td>{{ entity.creationDate|date('Y-m-d H:i:s') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Author</th>
+                                <td>
+                                    {% if entity.user is not null %}
+                                        {{ entity.user }}
+                                        {% else %}
+                                        <p>{{ "No author" }}</p> 
+                                    {% endif %}
+                                </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            {{ knp_disqus_render('epoz', {'identifier': '/december-2010/the-best-day-of-my-life/', 'limit': 10}) }}
+            {{ knp_disqus_render('epoz', {'identifier': app.request.get('_route') ~ '/' ~ entity.id, 'limit': 10}) }}
+
+
         </div>
-    {% endblock %}
+{% endblock %}
